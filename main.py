@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
 import exParsing
 from PyQt5.QtCore import Qt
@@ -14,21 +15,23 @@ class MyApp(QWidget):
         self.cb = QCheckBox('Extend Parsing', self)
         self.pstart1 = QLineEdit()
         self.pend1 = QLineEdit()
-        self.pstart2 = QLineEdit("")
-        self.pend2 = QLineEdit("")
+        self.pstart2 = QLineEdit()
+        self.pend2 = QLineEdit()
 
-        self.prow1 = QLineEdit()
-        self.pcol1 = QLineEdit()
-        self.prow2 = QLineEdit()
-        self.pcol2 = QLineEdit()
+        self.pcolumn1 = QLineEdit()
+        self.pwidth1 = QLineEdit()
+        self.pcolumn2 = QLineEdit()
+        self.pwidth2 = QLineEdit()
 
-        self.prow1.setText("100")
-        self.pcol1.setText("50")
-        self.prow2.setText("100")
-        self.pcol2.setText("50")
+        self.pcolumn1.setText("0")
+        self.pwidth1.setText("50")
+        self.pcolumn2.setText("1")
+        self.pwidth2.setText("50")
 
-        self.pstart1.setText("Standard_START")
-        self.pend1.setText("Standard_END")
+        self.pstart1.setText("TEST_START")
+        self.pend1.setText("TEST_END")
+        self.pstart2.setText("TEST_START")
+        self.pend2.setText("TEST_END")
 
         self.initUI()
         self.pcount=1
@@ -41,14 +44,14 @@ class MyApp(QWidget):
         #Label
         self.grid.addWidget(QLabel('Parsing START-1:'), 1, 0)
         self.grid.addWidget(QLabel('Parsing END-1:'), 2, 0)
-        self.grid.addWidget(QLabel('행 크기:'), 1, 2)
-        self.grid.addWidget(QLabel('열 크기:'), 2, 2)
+        self.grid.addWidget(QLabel('열 위치:'), 1, 2)
+        self.grid.addWidget(QLabel('열 너비:'), 2, 2)
 
         #Edit버튼 붙이기
         self.grid.addWidget(self.pstart1, 1, 1)
         self.grid.addWidget(self.pend1, 2, 1)
-        self.grid.addWidget(self.prow1, 1, 3)
-        self.grid.addWidget(self.pcol1, 2, 3)
+        self.grid.addWidget(self.pcolumn1, 1, 3)
+        self.grid.addWidget(self.pwidth1, 2, 3)
 
         #Button
         btn1 = QPushButton('상태저장', self)
@@ -70,12 +73,12 @@ class MyApp(QWidget):
             self.pcount=2 #두개를 파싱함
             self.grid.addWidget(QLabel('Parsing START-2:'), 3, 0)
             self.grid.addWidget(QLabel('Parsing END-2:'), 4, 0)
-            self.grid.addWidget(QLabel('행 크기:'), 3, 2)
-            self.grid.addWidget(QLabel('열 크기:'), 4, 2)
+            self.grid.addWidget(QLabel('열 위치:'), 3, 2)
+            self.grid.addWidget(QLabel('열 너비:'), 4, 2)
             self.grid.addWidget(self.pstart2, 3, 1)
             self.grid.addWidget(self.pend2, 4, 1)
-            self.grid.addWidget(self.prow2, 3, 3)
-            self.grid.addWidget(self.pcol2, 4, 3)
+            self.grid.addWidget(self.pcolumn2, 3, 3)
+            self.grid.addWidget(self.pwidth2, 4, 3)
             self.show()
         else:
             print("체크해지됨")
@@ -86,20 +89,24 @@ class MyApp(QWidget):
 
     def parsing(self):
         print("값 전달")
-        if self.pcount == 2:
-            #두개일 떄, 진행
-            return
         program=exParsing.MyParsing()
-        program.initCell(self.pstart1.text(), self.pend1.text(), int(self.prow1.text()), int(self.pcol1.text()))
         program.getTxt()
         program.makeSheet()
 
+        program.initCell(self.pstart1.text(), self.pend1.text(), int(self.pcolumn1.text()), int(self.pwidth1.text()))
+        program.writeCell()
 
+        if self.pcount == 2:
+            # 두개일 떄, 진행
+            program.initCell(self.pstart2.text(), self.pend2.text(), int(self.pcolumn2.text()),
+                             int(self.pwidth2.text()))
+            return
+        #결과 엑셀 자동실행
+        os.system('start excel.exe "%s\\result.xlsx"' % (sys.path[0],))
 
 
     def exiting(self):
         return
-
 
     def center(self):
         qr = self.frameGeometry()
