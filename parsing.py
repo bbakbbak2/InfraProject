@@ -14,6 +14,7 @@ class MyParsing:
         self.end = ""
         self.col = 0
         self.row = 0
+        self.dir = ""
 
     def initVal(self, start, end, col, row, width, height):
         self.start = start
@@ -34,9 +35,9 @@ class MyParsing:
         for wsname in self.txtList:
             try:
                 # 텍스트 파일을 연다. UTF-8로 인코딩 된 텍스트 파일만 불러올 수 있다.
-                FH = codecs.open(wsname, 'r', 'utf-8')
+                FH = open(self.dir+"/"+wsname, 'r', encoding='utf-8')
             except IOError:
-                QMessageBox.warning(self, "에러", '텍스트 파일 에러')
+                print("텍스트 오픈 에러")
 
             # 워크시트 선택, 세부설정
             # ws = wb.active #첫번째 워크시트 선택
@@ -63,7 +64,11 @@ class MyParsing:
                     # 셀에 데이터 기록
                     ws.row_dimensions[nextcell].height = self.height
                     ws[stcol + str(nextcell)].alignment = Alignment(vertical='top', wrap_text=True)
-                    ws[stcol+str(nextcell)] = "".join(contentList)
+                    try:
+                        ws[stcol+str(nextcell)] = "".join(contentList)
+                    # badcharacters 에러 이슈가 있었음
+                    except openpyxl.utils.exceptions.IllegalCharacterError:
+                        pass
 
                     # 리스트 초기화, 다음 엑셀 행 반복
                     contentList = []
@@ -87,6 +92,7 @@ class MyParsing:
 
     def getTxt(self, dir):
         # 현재 디렉토리 파일 목록 획득, 텍스트 파일만 추출하기
+        self.dir = dir
         fileList = os.listdir(dir)
         for file in fileList:
             if file.find('.txt') > 0:
