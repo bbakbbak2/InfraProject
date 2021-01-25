@@ -1,0 +1,94 @@
+# -*- coding: utf-8 -*-
+import codecs
+import os
+import openpyxl
+from PyQt5.QtWidgets import QMessageBox
+from openpyxl.styles import Alignment
+
+class MyParsing:
+    def __init__(self):
+        super().__init__()
+        self.txtList = []  # 텍스트 배열
+        self.wsList = []  # 워크시트명 배열
+        self.start = ""
+        self.end = ""
+        self.col = 0
+        self.row = 0
+
+    def initVal(self, start, end, col, row, width, height):
+        self.start = start
+        self.end = end
+        self.col = col
+        self.row = row
+        self.width = width
+        self.height = height
+
+    # FH는 파일핸들러
+    def writeCell(self, filename):
+        stcol = self.col
+        strow = self.row
+
+        wb = openpyxl.load_workbook(filename)
+        FH = None
+        # 워크시트 별로 작업 진행
+        for wsname in self.txtList:
+            try:
+                # 텍스트 파일을 연다. UTF-8로 인코딩 된 텍스트 파일만 불러올 수 있다.
+                FH = codecs.open(wsname, 'r', 'utf-8')
+            except IOError:
+                QMessageBox.warning(self, "에러", '텍스트 파일 에러')
+
+            # 워크시트 선택, 세부설정
+            # ws = wb.active #첫번째 워크시트 선택
+            ws = wb.get_sheet_by_name(wsname.rstrip('.txt'))
+            ws.column_dimensions[stcol].width = self.width
+
+            #텍스트 내용 가져오기
+            contentList = []        #파싱포인트 배열
+            nextcell = int(strow)   #셀 행 구분
+            # 파일의 내용을 라인 단위로 리스트에 저장  Standard_START, Standard_END
+            findPoint = False
+            for line in FH:
+                if line.find(self.start) >= 0:
+                    findPoint = True
+                if findPoint:
+                    contentList.append(line)
+
+                # End 문구를 찾았을 때, 리스트에 기록된 내용을 시트에 저장
+                if line.find(self.end) >= 0:
+                    # 첫번째, 마지막에 기록된 파싱문구를 지워서 최적화한다.
+                    contentList.pop(0)
+                    contentList.pop(-1)
+
+                    # 셀에 데이터 기록
+                    ws.row_dimensions[nextcell].height = self.height
+                    ws[stcol + str(nextcell)].alignment = Alignment(vertical='top', wrap_text=True)
+                    ws[stcol+str(nextcell)] = "".join(contentList)
+
+                    # 리스트 초기화, 다음 엑셀 행 반복
+                    contentList = []
+                    findPoint = False
+                    nextcell += 1
+        # 모든 시트 기록 후 자원 반납
+        wb.save(filename)
+        FH.close()
+
+    def checkSheet(self, filename):
+        wb = openpyxl.load_workbook(filename)
+        # wb.get_sheet_names() 모든 워크시트 이름 가져오기
+        for wsname in self.wsList:
+            try:
+                ws = wb[wsname]         # 워크시트가 존재함
+            except KeyError:            # 존재하지 않을 경우 새로 생성
+                ws = wb.create_sheet()
+                ws.title = wsname
+            finally:
+                wb.save(filename)
+
+    def getTxt(self, dir):
+        # 현재 디렉토리 파일 목록 획득, 텍스트 파일만 추출하기
+        fileList = os.listdir(dir)
+        for file in fileList:
+            if file.find('.txt') > 0:
+                self.txtList.append(file)
+                self.wsList.append(file.rstrip('.txt'))

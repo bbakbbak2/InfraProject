@@ -94,6 +94,7 @@ TEST_START
 TEST_END
 --------------------------------------------------------------------------------------------------------
 _System_State
+TEST_START
 #%PAM-1.0
 # This file is auto-generated.
 # User changes will be destroyed the next time authconfig is run.
@@ -117,6 +118,7 @@ session     required      pam_limits.so
 session     [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid
 session     required      pam_unix.so
 cat: /etc/pam.d/common-password: No such file or directory
+TEST_END
 System_State_
 --------------------------------------------------------------------------------------------------------
 ########################################################################################################
@@ -140,6 +142,7 @@ TEST_END
  
 ● /etc/shadow 파일 내용
  
+TEST_START
 /etc/shadow 파일이 존재합니다.
 ----------. 1 root root 1285 Feb 27 15:07 /etc/shadow
 daemon:*:15980:0:99999:7:::
@@ -163,7 +166,7 @@ tcpdump:x:72:72::/:/sbin/nologin
 mysql:x:605:600::/home/mysql:/bin/bash
 intposid:x:606:606::/home/intposid:/bin/bash
 upposid:x:607:607::/home/upposid:/bin/bash
- 
+TEST_END
 --------------------------------------------------------------------------------------------------------
 ########################################################################################################
 ========================================================================================================

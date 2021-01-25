@@ -1,111 +1,133 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-import exParsing
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QDesktopWidget, QApplication, QWidget, QGridLayout, QLabel, QLineEdit, QTextEdit,
-                             QPushButton, QCheckBox)
 
+from PyQt5.QtCore import QCoreApplication
+
+import parsing
+import configparser
+from PyQt5.QtWidgets import (QDesktopWidget, QApplication, QWidget, QGridLayout, QLabel, QLineEdit, QFileDialog,
+                             QMessageBox, QPushButton)
 
 class MyApp(QWidget):
-
-    def __init__(self):
+    def __init__(self): 
         super().__init__()
         self.grid = QGridLayout()
-        self.cb = QCheckBox('Extend Parsing', self)
-        self.pstart1 = QLineEdit()
-        self.pend1 = QLineEdit()
-        self.pstart2 = QLineEdit()
-        self.pend2 = QLineEdit()
 
-        self.pcolumn1 = QLineEdit()
-        self.pwidth1 = QLineEdit()
-        self.pcolumn2 = QLineEdit()
-        self.pwidth2 = QLineEdit()
+        self.xllocation = QLineEdit()
+        self.dirlocation = QLineEdit()
 
-        self.pcolumn1.setText("0")
-        self.pwidth1.setText("50")
-        self.pcolumn2.setText("1")
-        self.pwidth2.setText("50")
+        self.pstart = QLineEdit()
+        self.pend = QLineEdit()
 
-        self.pstart1.setText("TEST_START")
-        self.pend1.setText("TEST_END")
-        self.pstart2.setText("TEST_START")
-        self.pend2.setText("TEST_END")
+        self.prow = QLineEdit()
+        self.pcol = QLineEdit()
+        self.pwidth = QLineEdit()
+        self.pheight = QLineEdit()
+
+        self.xllocation.setMaximumWidth(395)
+        self.dirlocation.setMaximumWidth(395)
+        self.prow.setMaximumWidth(75)
+        self.pcol.setMaximumWidth(75)
+        self.pwidth.setMaximumWidth(75)
+        self.pheight.setMaximumWidth(75)
+
+        #초기 값 지정(config.ini에서 가져옴)
+        self.config = configparser.ConfigParser()
+        self.config.read('./config.ini')
+
+        self.pcol.setText(self.config['Settings']['column'])
+        self.prow.setText(self.config['Settings']['row'])
+        self.pwidth.setText(self.config['Settings']['width'])
+        self.pheight.setText(self.config['Settings']['height'])
+        self.pstart.setText(self.config['Settings']['start'])
+        self.pend.setText(self.config['Settings']['end'])
 
         self.initUI()
-        self.pcount=1
+        QMessageBox.information(self, "필독사항", '1. 작업할 엑셀 파일을 반드시 백업해주세요.\r\n'\
+                                                 '2. 엑셀파일이 실행중인 경우 오류가 발생합니다. 종료 후 실행해주세요.')
 
     def initUI(self):
+        self.setWindowTitle('InfraProject v1.0 by.Elbrown')
+
         #GridLayOut
         self.setLayout(self.grid)
-        self.cb.stateChanged.connect(self.extend)
-        self.grid.addWidget(self.cb, 0, 0)
+
         #Label
-        self.grid.addWidget(QLabel('Parsing START-1:'), 1, 0)
-        self.grid.addWidget(QLabel('Parsing END-1:'), 2, 0)
-        self.grid.addWidget(QLabel('열 위치:'), 1, 2)
-        self.grid.addWidget(QLabel('열 너비:'), 2, 2)
+        xlbtn = QPushButton('엑셀 파일 선택', self)
+        dirbtn = QPushButton('텍스트 디렉토리 선택', self)
+        self.grid.addWidget(xlbtn, 0, 0)
+        self.grid.addWidget(dirbtn, 1, 0)
+        self.grid.addWidget(QLabel('파싱 시작 문자열 입력'), 2, 0)
+        self.grid.addWidget(QLabel('파싱 종료 문자열 입력'), 3, 0)
+        self.grid.addWidget(QLabel('셀 위치 열/행'), 2, 2)
+        self.grid.addWidget(QLabel('셀 너비/높이'), 3, 2)
 
         #Edit버튼 붙이기
-        self.grid.addWidget(self.pstart1, 1, 1)
-        self.grid.addWidget(self.pend1, 2, 1)
-        self.grid.addWidget(self.pcolumn1, 1, 3)
-        self.grid.addWidget(self.pwidth1, 2, 3)
+        self.grid.addWidget(self.xllocation, 0, 1, 1, 4)
+        self.grid.addWidget(self.dirlocation, 1, 1, 1, 4)
+        self.grid.addWidget(self.pstart, 2, 1)
+        self.grid.addWidget(self.pend, 3, 1)
+
+        self.grid.addWidget(self.pcol, 2, 3)
+        self.grid.addWidget(self.prow, 2, 4)
+
+        self.grid.addWidget(self.pwidth, 3, 3)
+        self.grid.addWidget(self.pheight, 3, 4)
 
         #Button
-        btn1 = QPushButton('상태저장', self)
-        btn2 = QPushButton('파싱시작', self)
-        btn3 = QPushButton('종료', self)
+        scbtn = QPushButton('설정저장', self)
+        psbtn = QPushButton('파싱시작', self)
+        oebtn = QPushButton('엑셀열기', self)
+        closebtn = QPushButton('종료하기', self)
 
-        self.grid.addWidget(btn1, 5, 0)
-        self.grid.addWidget(btn2, 5, 1)
-        self.grid.addWidget(btn3, 5, 2)
+        self.grid.addWidget(scbtn, 4, 0)
+        self.grid.addWidget(psbtn, 4, 1, 1, 2)
+        self.grid.addWidget(oebtn, 4, 3)
+        self.grid.addWidget(closebtn, 4, 4)
 
-        btn2.clicked.connect(self.parsing)
+        #이벤트 연결
+        scbtn.clicked.connect(self.saveConfig)
+        xlbtn.clicked.connect(self.selectXl)
+        dirbtn.clicked.connect(self.selectDir)
+        psbtn.clicked.connect(self.parsing)
+        oebtn.clicked.connect(self.openExcel)
+        closebtn.clicked.connect(QCoreApplication.instance().quit)
 
         self.center()
         self.show()
 
-    def extend(self, state):
-        if state == Qt.Checked:
-            print("체크됨")
-            self.pcount=2 #두개를 파싱함
-            self.grid.addWidget(QLabel('Parsing START-2:'), 3, 0)
-            self.grid.addWidget(QLabel('Parsing END-2:'), 4, 0)
-            self.grid.addWidget(QLabel('열 위치:'), 3, 2)
-            self.grid.addWidget(QLabel('열 너비:'), 4, 2)
-            self.grid.addWidget(self.pstart2, 3, 1)
-            self.grid.addWidget(self.pend2, 4, 1)
-            self.grid.addWidget(self.pcolumn2, 3, 3)
-            self.grid.addWidget(self.pwidth2, 4, 3)
-            self.show()
-        else:
-            print("체크해지됨")
-            self.pcount=1
+    def selectXl(self):
+        file_name = QFileDialog.getOpenFileName(self, "엑셀 파일 선택", "", "Excel Files (*.xlsx)")
+        self.xllocation.setText(file_name[0])
 
-    def saving(self):
-        return
+    def selectDir(self):
+        dir_name = QFileDialog.getExistingDirectory(self, "텍스트 파일 디렉토리 선택", "")
+        self.dirlocation.setText(dir_name)
+
+    def saveConfig(self):
+        #현재 지정된 설정으로 옵션 변경
+        self.config.set("Settings", "column", self.pcol.text())
+        self.config.set("Settings", "row", self.prow.text())
+        self.config.set("Settings", "width", self.pwidth.text())
+        self.config.set("Settings", "height", self.pheight.text())
+        self.config.set("Settings", "start", self.pstart.text())
+        self.config.set("Settings", "end", self.pend.text())
+        # parser에 내용을 추가 해 중 뒤에는 반드시 write 해줘야 함
+        with open('./config.ini', "w") as fp:
+            self.config.write(fp)
+        QMessageBox.information(self, "메세지", '설정이 저장되었습니다.')
 
     def parsing(self):
-        print("값 전달")
-        program=exParsing.MyParsing()
-        program.getTxt()
-        program.makeSheet()
+        program=parsing.MyParsing()
+        program.getTxt(self.dirlocation.text())
+        program.initVal(self.pstart.text(),self.pend.text(), self.pcol.text(), self.prow.text(), self.pwidth.text(), self.pheight.text())
+        program.checkSheet(self.xllocation.text())
+        program.writeCell(self.xllocation.text())
+        QMessageBox.information(self, "메세지", '작업이 완료되었습니다.')
 
-        program.initCell(self.pstart1.text(), self.pend1.text(), int(self.pcolumn1.text()), int(self.pwidth1.text()))
-        program.writeCell()
-
-        if self.pcount == 2:
-            # 두개일 떄, 진행
-            program.initCell(self.pstart2.text(), self.pend2.text(), int(self.pcolumn2.text()),
-                             int(self.pwidth2.text()))
-            return
-        #결과 엑셀 자동실행
-        os.system('start excel.exe "%s\\result.xlsx"' % (sys.path[0],))
-
-
-    def exiting(self):
+    def openExcel(self):
+        os.system('start excel.exe "%s' %(self.xllocation.text(),))
         return
 
     def center(self):
