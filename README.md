@@ -40,4 +40,4 @@ python main.py
 5. 셀 너비/높이: 너비와 높이를 지정할 수 있습니다.
 
 # 유튜브 영상 가이드
-- https://youtu.be/fggDEbcP1Yg
+- https://youtu.be/SONgc_J6svs
