@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-import codecs
 import os
 import openpyxl
-from PyQt5.QtWidgets import QMessageBox
 from openpyxl.styles import Alignment
+import re
 
 class MyParsing:
     def __init__(self):
@@ -40,9 +39,13 @@ class MyParsing:
                 print("텍스트 오픈 에러")
 
             # 워크시트 선택, 세부설정
-            # ws = wb.active #첫번째 워크시트 선택
-            ws = wb.get_sheet_by_name(wsname.rstrip('.txt'))
+            # ws = wb.active active는 첫번째 워크시트를 선택하는 코드임
+            ws = wb.get_sheet_by_name(os.path.splitext(wsname)[0])
             ws.column_dimensions[stcol].width = self.width
+
+            # 정규표현식 셋팅
+            pstart = re.compile(self.start)
+            pend = re.compile(self.end)
 
             #텍스트 내용 가져오기
             contentList = []        #파싱포인트 배열
@@ -50,30 +53,32 @@ class MyParsing:
             # 파일의 내용을 라인 단위로 리스트에 저장  Standard_START, Standard_END
             findPoint = False
             for line in FH:
-                if line.find(self.start) >= 0:
+                if pstart.search(line) != None:
                     findPoint = True
+                #시작 포인트 찾았을때, 엔드포인트 진행
                 if findPoint:
+                    #print("파싱 포인트를 찾았습니다.")
+                    #print("일치하는 라인: %s" %line)
                     contentList.append(line)
+                     # End 문구를 찾았을 때, 리스트에 기록된 내용을 시트에 저장
+                    if pend.search(line) != None:
+                        # 첫번째, 마지막에 기록된 파싱문구를 지워서 최적화한다.
+                        contentList.pop(0)
+                        contentList.pop(-1)
 
-                # End 문구를 찾았을 때, 리스트에 기록된 내용을 시트에 저장
-                if line.find(self.end) >= 0:
-                    # 첫번째, 마지막에 기록된 파싱문구를 지워서 최적화한다.
-                    contentList.pop(0)
-                    contentList.pop(-1)
+                        # 셀에 데이터 기록
+                        ws.row_dimensions[nextcell].height = self.height
+                        ws[stcol + str(nextcell)].alignment = Alignment(vertical='top', wrap_text=True)
+                        try:
+                            ws[stcol+str(nextcell)] = "".join(contentList)
+                        # badcharacters 에러 이슈가 있었음
+                        except openpyxl.utils.exceptions.IllegalCharacterError:
+                            pass
 
-                    # 셀에 데이터 기록
-                    ws.row_dimensions[nextcell].height = self.height
-                    ws[stcol + str(nextcell)].alignment = Alignment(vertical='top', wrap_text=True)
-                    try:
-                        ws[stcol+str(nextcell)] = "".join(contentList)
-                    # badcharacters 에러 이슈가 있었음
-                    except openpyxl.utils.exceptions.IllegalCharacterError:
-                        pass
-
-                    # 리스트 초기화, 다음 엑셀 행 반복
-                    contentList = []
-                    findPoint = False
-                    nextcell += 1
+                        # 리스트 초기화, 다음 엑셀 행 반복
+                        contentList = []
+                        findPoint = False
+                        nextcell += 1
         # 모든 시트 기록 후 자원 반납
         wb.save(filename)
         FH.close()
@@ -97,4 +102,5 @@ class MyParsing:
         for file in fileList:
             if file.find('.txt') > 0:
                 self.txtList.append(file)
-                self.wsList.append(file.rstrip('.txt'))
+                # 확장자 제거
+                self.wsList.append(os.path.splitext(file)[0])
