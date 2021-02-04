@@ -7,7 +7,7 @@ from PyQt5.QtCore import QCoreApplication
 import parsing
 import configparser
 from PyQt5.QtWidgets import (QDesktopWidget, QApplication, QWidget, QGridLayout, QLabel, QLineEdit, QFileDialog,
-                             QMessageBox, QPushButton)
+                             QMessageBox, QPushButton, QRadioButton)
 
 class MyApp(QWidget):
     def __init__(self): 
@@ -35,7 +35,6 @@ class MyApp(QWidget):
         #초기 값 지정(config.ini에서 가져옴)
         self.config = configparser.ConfigParser()
         self.config.read('./config.ini')
-
         self.pcol.setText(self.config['Settings']['column'])
         self.prow.setText(self.config['Settings']['row'])
         self.pwidth.setText(self.config['Settings']['width'])
@@ -46,8 +45,9 @@ class MyApp(QWidget):
         self.initUI()
         QMessageBox.information(self, "주의사항",
                                 '1. 작업할 엑셀 파일을 반드시 백업해주세요.\r\n' \
-                                '2. 엑셀파일이 실행중인 경우 오류가 발생합니다. \r\n   *엑셀 종료 후 실행해주세요.\r\n' \
-                                '3. 입력된 파싱 패턴을 찾지 못하면 내용이 저장되지 않습니다.')
+                                '2. 엑셀파일이 실행중인 경우 오류가 발생합니다.\r\n' \
+                                '3. 입력된 파싱 패턴을 찾지 못하면 내용이 저장되지 않습니다.\r\n'\
+                                '4. UTF-8 타입의 텍스트 인코딩만 지원됩니다.\r\n')
 
     def initUI(self):
         self.setWindowTitle('InfraProject v1.0 by.Elbrown')
@@ -55,11 +55,12 @@ class MyApp(QWidget):
         #GridLayOut
         self.setLayout(self.grid)
 
-        #Label
         xlbtn = QPushButton('엑셀 파일 선택', self)
         dirbtn = QPushButton('텍스트 디렉토리 선택', self)
         self.grid.addWidget(xlbtn, 0, 0)
         self.grid.addWidget(dirbtn, 1, 0)
+
+        # Label
         self.grid.addWidget(QLabel('파싱 시작 문자열 입력'), 2, 0)
         self.grid.addWidget(QLabel('파싱 종료 문자열 입력'), 3, 0)
         self.grid.addWidget(QLabel('셀 위치 열/행'), 2, 2)
@@ -68,6 +69,7 @@ class MyApp(QWidget):
         #Edit버튼 붙이기
         self.grid.addWidget(self.xllocation, 0, 1, 1, 4)
         self.grid.addWidget(self.dirlocation, 1, 1, 1, 4)
+
         self.grid.addWidget(self.pstart, 2, 1)
         self.grid.addWidget(self.pend, 3, 1)
 
@@ -124,9 +126,22 @@ class MyApp(QWidget):
         program=parsing.MyParsing()
         program.getTxt(self.dirlocation.text())
         program.initVal(self.pstart.text(),self.pend.text(), self.pcol.text(), self.prow.text(), self.pwidth.text(), self.pheight.text())
-        program.checkSheet(self.xllocation.text())
-        program.writeCell(self.xllocation.text())
-        QMessageBox.information(self, "메세지", '작업이 완료되었습니다.')
+        if program.checkSheet(self.xllocation.text()):
+            QMessageBox.critical(self, "메세지", '실행된 엑셀 파일을 종료해주세요.')
+            return
+        # Return 값에 따른 에러처리 1:텍스트파일에러, 2:파싱문자열에러, 3:인코딩에러
+        val=program.writeCell(self.xllocation.text())
+        if val==1:
+            QMessageBox.warning(self, "에러메세지", '텍스트 파일 오픈 에러, 파일이 존재하는지 확인해주세요.')
+            return
+        elif val==2:
+            QMessageBox.warning(self, "에러메세지", '시작/끝 파싱포인트가 매칭되지 않았습니다. 문자열 또는 정규표현식을 다시 확인해주세요.')
+            return
+        elif val==3:
+            QMessageBox.warning(self, "에러메세지", 'UTF-8 텍스트 파일의 인코딩만 지원합니다.')
+            return
+        else:
+            QMessageBox.information(self, "메세지", '작업이 완료되었습니다. 엑셀열기를 클릭해주세요.')
 
     def openExcel(self):
         os.system('start excel.exe "%s' %(self.xllocation.text(),))
