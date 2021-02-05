@@ -1,0 +1,335 @@
+
+INFO_CHKSTART
+
+cat: /etc/redhat-release: No such file or directory
+현황시작
+★ Ⅰ. 전체 결과물 출력  ★ ***********************************************************************************
+ 
+######################################### Start Time ###################################################
+Mon Jan 25 05:48:27 EST 2021
+
+=================================== System Information Query Start =====================================
+현황끝
+#######################################   Kernel Information   #########################################
+Linux kali 5.8.0-kali2-amd64 #1 SMP Debian 5.8.10-1kali1 (2020-09-22) x86_64 GNU/Linux
+ 
+####################################### Model ###################################
+ 
+####################################### Machine Information ##################################
+현황시작
+* IP_Start 
+#########################################   IP Information   ###########################################
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.35.129  netmask 255.255.255.0  broadcast 192.168.35.255
+        inet6 fe80::20c:29ff:fe4e:3bcc  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:4e:3b:cc  txqueuelen 1000  (Ethernet)
+        RX packets 3  bytes 520 (520.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 13  bytes 1267 (1.2 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 14  bytes 718 (718.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 14  bytes 718 (718.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+* IP_End 
+현황끝
+#########################################   Network Status   ###########################################
+Active Internet connections (servers and established)
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+udp        0      0 192.168.35.129:68       192.168.35.254:67       ESTABLISHED
+Active UNIX domain sockets (servers and established)
+unix  2      [ ACC ]     STREAM     LISTENING     16149    /run/systemd/private
+unix  2      [ ACC ]     STREAM     LISTENING     16153    /run/systemd/userdb/io.systemd.DynamicUser
+unix  2      [ ACC ]     STREAM     LISTENING     26396    /run/user/0/keyring/control
+unix  2      [ ACC ]     STREAM     LISTENING     23765    @/tmp/.X11-unix/X0
+unix  2      [ ACC ]     STREAM     LISTENING     16170    /run/systemd/fsck.progress
+unix  2      [ ACC ]     STREAM     LISTENING     16181    /run/systemd/journal/stdout
+unix  2      [ ACC ]     SEQPACKET  LISTENING     16187    /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     26798    @/tmp/.ICE-unix/826
+unix  2      [ ACC ]     STREAM     LISTENING     26586    /tmp/ssh-6sL55u5nBKyb/agent.826
+unix  2      [ ACC ]     STREAM     LISTENING     26749    @/tmp/dbus-4bWrVD839w
+unix  2      [ ACC ]     STREAM     LISTENING     23766    /tmp/.X11-unix/X0
+unix  2      [ ACC ]     STREAM     LISTENING     26799    /tmp/.ICE-unix/826
+unix  2      [ ACC ]     STREAM     LISTENING     20323    /run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     20327    /run/pcscd/pcscd.comm
+unix  2      [ ACC ]     STREAM     LISTENING     26279    /run/user/0/systemd/private
+unix  2      [ ACC ]     STREAM     LISTENING     26286    /run/user/0/bus
+unix  2      [ ACC ]     STREAM     LISTENING     26289    /run/user/0/gnupg/S.dirmngr
+unix  2      [ ACC ]     STREAM     LISTENING     26291    /run/user/0/gnupg/S.gpg-agent.browser
+unix  2      [ ACC ]     STREAM     LISTENING     26293    /run/user/0/gnupg/S.gpg-agent.extra
+unix  2      [ ACC ]     STREAM     LISTENING     26295    /run/user/0/gnupg/S.gpg-agent.ssh
+unix  2      [ ACC ]     STREAM     LISTENING     26297    /run/user/0/gnupg/S.gpg-agent
+unix  2      [ ACC ]     STREAM     LISTENING     26299    /run/user/0/pk-debconf-socket
+unix  2      [ ACC ]     STREAM     LISTENING     26301    /run/user/0/pulse/native
+unix  2      [ ACC ]     STREAM     LISTENING     19412    /run/systemd/journal/io.systemd.journal
+현황시작
+#######################################   Routing Information   ########################################
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         192.168.35.2    0.0.0.0         UG        0 0          0 eth0
+192.168.35.0    0.0.0.0         255.255.255.0   U         0 0          0 eth0
+현황끝
+##########################################   Process Status   ##########################################
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  2 05:47 ?        00:00:01 /sbin/init splash
+root           2       0  0 05:47 ?        00:00:00 [kthreadd]
+root           3       2  0 05:47 ?        00:00:00 [rcu_gp]
+root           4       2  0 05:47 ?        00:00:00 [rcu_par_gp]
+root           5       2  0 05:47 ?        00:00:00 [kworker/0:0-cgroup_destroy]
+root           6       2  0 05:47 ?        00:00:00 [kworker/0:0H-kblockd]
+root           7       2  0 05:47 ?        00:00:00 [kworker/0:1-ata_sff]
+root           8       2  0 05:47 ?        00:00:00 [kworker/u256:0-events_unbound]
+root           9       2  0 05:47 ?        00:00:00 [mm_percpu_wq]
+root          10       2  0 05:47 ?        00:00:00 [ksoftirqd/0]
+root          11       2  0 05:47 ?        00:00:00 [rcu_sched]
+root          12       2  0 05:47 ?        00:00:00 [migration/0]
+root          13       2  0 05:47 ?        00:00:00 [cpuhp/0]
+root          15       2  0 05:47 ?        00:00:00 [kdevtmpfs]
+root          16       2  0 05:47 ?        00:00:00 [netns]
+root          17       2  0 05:47 ?        00:00:00 [rcu_tasks_rude_]
+root          18       2  0 05:47 ?        00:00:00 [kauditd]
+root          19       2  0 05:47 ?        00:00:00 [khungtaskd]
+root          20       2  0 05:47 ?        00:00:00 [oom_reaper]
+root          21       2  0 05:47 ?        00:00:00 [writeback]
+root          22       2  0 05:47 ?        00:00:00 [kcompactd0]
+root          23       2  0 05:47 ?        00:00:00 [ksmd]
+root          24       2  0 05:47 ?        00:00:00 [khugepaged]
+root          42       2  0 05:47 ?        00:00:00 [kintegrityd]
+root          43       2  0 05:47 ?        00:00:00 [kblockd]
+root          44       2  0 05:47 ?        00:00:00 [blkcg_punt_bio]
+root          45       2  0 05:47 ?        00:00:00 [edac-poller]
+root          46       2  0 05:47 ?        00:00:00 [devfreq_wq]
+root          47       2  0 05:47 ?        00:00:00 [kswapd0]
+root          48       2  0 05:47 ?        00:00:00 [kthrotld]
+root          49       2  0 05:47 ?        00:00:00 [irq/24-pciehp]
+root          50       2  0 05:47 ?        00:00:00 [irq/25-pciehp]
+root          51       2  0 05:47 ?        00:00:00 [irq/26-pciehp]
+root          52       2  0 05:47 ?        00:00:00 [irq/27-pciehp]
+root          53       2  0 05:47 ?        00:00:00 [irq/28-pciehp]
+root          54       2  0 05:47 ?        00:00:00 [irq/29-pciehp]
+root          55       2  0 05:47 ?        00:00:00 [irq/30-pciehp]
+root          56       2  0 05:47 ?        00:00:00 [irq/31-pciehp]
+root          57       2  0 05:47 ?        00:00:00 [irq/32-pciehp]
+root          58       2  0 05:47 ?        00:00:00 [irq/33-pciehp]
+root          59       2  0 05:47 ?        00:00:00 [irq/34-pciehp]
+root          60       2  0 05:47 ?        00:00:00 [irq/35-pciehp]
+root          61       2  0 05:47 ?        00:00:00 [irq/36-pciehp]
+root          62       2  0 05:47 ?        00:00:00 [irq/37-pciehp]
+root          63       2  0 05:47 ?        00:00:00 [irq/38-pciehp]
+root          64       2  0 05:47 ?        00:00:00 [irq/39-pciehp]
+root          65       2  0 05:47 ?        00:00:00 [irq/40-pciehp]
+root          66       2  0 05:47 ?        00:00:00 [irq/41-pciehp]
+root          67       2  0 05:47 ?        00:00:00 [irq/42-pciehp]
+root          68       2  0 05:47 ?        00:00:00 [irq/43-pciehp]
+root          69       2  0 05:47 ?        00:00:00 [irq/44-pciehp]
+root          70       2  0 05:47 ?        00:00:00 [irq/45-pciehp]
+root          71       2  0 05:47 ?        00:00:00 [irq/46-pciehp]
+root          72       2  0 05:47 ?        00:00:00 [irq/47-pciehp]
+root          73       2  0 05:47 ?        00:00:00 [irq/48-pciehp]
+root          74       2  0 05:47 ?        00:00:00 [irq/49-pciehp]
+root          75       2  0 05:47 ?        00:00:00 [irq/50-pciehp]
+root          76       2  0 05:47 ?        00:00:00 [irq/51-pciehp]
+root          77       2  0 05:47 ?        00:00:00 [irq/52-pciehp]
+root          78       2  0 05:47 ?        00:00:00 [irq/53-pciehp]
+root          79       2  0 05:47 ?        00:00:00 [irq/54-pciehp]
+root          80       2  0 05:47 ?        00:00:00 [irq/55-pciehp]
+root          81       2  0 05:47 ?        00:00:00 [acpi_thermal_pm]
+root          82       2  0 05:47 ?        00:00:00 [ipv6_addrconf]
+root          83       2  0 05:47 ?        00:00:00 [kworker/u256:1-ext4-rsv-conversion]
+root          92       2  0 05:47 ?        00:00:00 [kstrp]
+root          95       2  0 05:47 ?        00:00:00 [zswap-shrink]
+root          96       2  0 05:47 ?        00:00:00 [kworker/u257:0]
+root         139       2  0 05:47 ?        00:00:00 [mpt_poll_0]
+root         140       2  0 05:47 ?        00:00:00 [ata_sff]
+root         141       2  0 05:47 ?        00:00:00 [mpt/0]
+root         142       2  0 05:47 ?        00:00:00 [scsi_eh_0]
+root         143       2  0 05:47 ?        00:00:00 [scsi_tmf_0]
+root         144       2  0 05:47 ?        00:00:00 [scsi_eh_1]
+root         145       2  0 05:47 ?        00:00:00 [scsi_tmf_1]
+root         146       2  0 05:47 ?        00:00:00 [kworker/u256:2-ext4-rsv-conversion]
+root         147       2  0 05:47 ?        00:00:00 [irq/16-vmwgfx]
+root         148       2  0 05:47 ?        00:00:00 [cryptd]
+root         150       2  0 05:47 ?        00:00:00 [ttm_swap]
+root         156       2  0 05:47 ?        00:00:00 [kworker/u256:3]
+root         162       2  0 05:47 ?        00:00:00 [kworker/0:2-memcg_kmem_cache]
+root         185       2  0 05:47 ?        00:00:00 [kworker/0:1H-kblockd]
+root         193       2  0 05:47 ?        00:00:00 [kworker/0:3-cgroup_destroy]
+root         203       2  0 05:47 ?        00:00:00 [scsi_eh_2]
+root         204       2  0 05:47 ?        00:00:00 [scsi_tmf_2]
+root         247       2  0 05:47 ?        00:00:00 [jbd2/sda1-8]
+root         248       2  0 05:47 ?        00:00:00 [ext4-rsv-conver]
+root         293       1  0 05:47 ?        00:00:00 /lib/systemd/systemd-journald
+root         299       2  0 05:47 ?        00:00:00 [rpciod]
+root         300       2  0 05:47 ?        00:00:00 [xprtiod]
+root         303       2  0 05:47 ?        00:00:00 [kworker/0:4-events]
+root         306       2  0 05:47 ?        00:00:00 [kworker/0:5-events]
+root         312       1  0 05:47 ?        00:00:00 vmware-vmblock-fuse /run/vmblock-fuse -o rw,subtype=vmware-vmblock,default_permissions,allow_other,dev,suid
+root         318       1  0 05:47 ?        00:00:00 /lib/systemd/systemd-udevd
+root         319       2  0 05:47 ?        00:00:00 [kworker/0:6-cgroup_destroy]
+root         460       1  0 05:47 ?        00:00:00 /usr/sbin/haveged --Foreground --verbose=1 -w 1024
+root         463       1  0 05:47 ?        00:00:00 /usr/bin/vmtoolsd
+root         464       1  0 05:47 ?        00:00:00 /usr/sbin/cron -f
+message+     465       1  0 05:47 ?        00:00:00 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+root         467       1  0 05:47 ?        00:00:00 /usr/sbin/NetworkManager --no-daemon
+root         469       1  0 05:47 ?        00:00:00 /usr/libexec/polkitd --no-debug
+root         471       1  0 05:47 ?        00:00:00 /usr/sbin/rsyslogd -n -iNONE
+root         472       1  0 05:47 ?        00:00:00 /usr/sbin/smartd -n
+root         475       1  0 05:47 ?        00:00:00 /lib/systemd/systemd-logind
+root         505       1  0 05:47 ?        00:00:00 /usr/sbin/ModemManager
+root         512       1  0 05:47 ?        00:00:00 /usr/sbin/lightdm
+root         522       1  0 05:47 ?        00:00:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+root         598     512  2 05:47 tty7     00:00:01 /usr/lib/xorg/Xorg :0 -seat seat0 -auth /var/run/lightdm/root/:0 -nolisten tcp vt7 -novtswitch
+root         599       1  0 05:47 tty1     00:00:00 /sbin/agetty -o -p -- \u --noclear tty1 linux
+rtkit        783       1  0 05:47 ?        00:00:00 /usr/libexec/rtkit-daemon
+root         795     512  0 05:47 ?        00:00:00 lightdm --session-child 14 23
+root         800       1  0 05:47 ?        00:00:00 /lib/systemd/systemd --user
+root         801     800  0 05:47 ?        00:00:00 (sd-pam)
+root         820     800  0 05:47 ?        00:00:00 /usr/bin/pulseaudio --daemonize=no
+root         823       1  0 05:47 ?        00:00:00 /usr/bin/gnome-keyring-daemon --daemonize --login
+root         826     795  0 05:47 ?        00:00:00 xfce4-session
+root         834     800  0 05:47 ?        00:00:00 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+root         925     826  0 05:47 ?        00:00:00 /usr/bin/ssh-agent /usr/bin/im-launch x-session-manager
+root        1004     800  0 05:47 ?        00:00:00 /usr/libexec/at-spi-bus-launcher
+root        1009    1004  0 05:47 ?        00:00:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 3
+root        1013     800  0 05:47 ?        00:00:00 /usr/lib/x86_64-linux-gnu/xfce4/xfconf/xfconfd
+root        1019     800  0 05:47 ?        00:00:00 /usr/libexec/at-spi2-registryd --use-gnome-session
+root        1025     800  0 05:47 ?        00:00:00 /usr/bin/gpg-agent --supervised
+root        1027     826  0 05:47 ?        00:00:00 xfwm4 --display :0.0 --sm-client-id 2fa47ce30-3e21-47ad-98e2-6dbe20ad1b1b
+root        1030     800  0 05:47 ?        00:00:00 /usr/libexec/gvfsd
+root        1035     800  0 05:47 ?        00:00:00 /usr/libexec/gvfsd-fuse /run/user/0/gvfs -f
+root        1048       1  0 05:47 ?        00:00:00 xfsettingsd --display :0.0 --sm-client-id 279e77c79-d8a9-4e38-8b34-a22100ff45ea
+root        1066       1  0 05:47 ?        00:00:00 /usr/libexec/upowerd
+root        1186     826  0 05:47 ?        00:00:00 xfce4-panel --display :0.0 --sm-client-id 27d7c9513-2928-45fa-adb0-19a4f056e5d4
+root        1192     826  0 05:47 ?        00:00:00 Thunar --sm-client-id 228683ce3-ba78-49b6-99f9-80d80de19cf0 --daemon
+root        1197     826  2 05:47 ?        00:00:00 xfdesktop --display :0.0 --sm-client-id 2f09dab64-c4e3-406d-947b-ad670e399b72
+root        1200    1186  0 05:47 ?        00:00:00 /usr/lib/x86_64-linux-gnu/xfce4/panel/wrapper-2.0 /usr/lib/x86_64-linux-gnu/xfce4/panel/plugins/libwhiskermenu.so 1 14680071 whiskermenu Whisker Menu Show a menu to easily access installed applications
+root        1201    1186  0 05:47 ?        00:00:00 /usr/lib/x86_64-linux-gnu/xfce4/panel/wrapper-2.0 /usr/lib/x86_64-linux-gnu/xfce4/panel/plugins/libsystray.so 15 14680073 systray Notification Area Area where notification icons appear
+root        1203    1186  0 05:47 ?        00:00:00 /usr/lib/x86_64-linux-gnu/xfce4/panel/wrapper-2.0 /usr/lib/x86_64-linux-gnu/xfce4/panel/plugins/libstatusnotifier.so 16 14680074 statusnotifier Status Notifier Plugin Provides a panel area for status notifier items (application indicators)
+root        1205    1186  0 05:47 ?        00:00:00 /usr/lib/x86_64-linux-gnu/xfce4/panel/wrapper-2.0 /usr/lib/x86_64-linux-gnu/xfce4/panel/plugins/libpulseaudio-plugin.so 17 14680075 pulseaudio PulseAudio Plugin Adjust the audio volume of the PulseAudio sound system
+root        1206    1186  0 05:47 ?        00:00:00 /usr/lib/x86_64-linux-gnu/xfce4/panel/wrapper-2.0 /usr/lib/x86_64-linux-gnu/xfce4/panel/plugins/libnotification-plugin.so 18 14680076 notification-plugin Notification Plugin Notification plugin for the Xfce panel
+root        1207    1186  0 05:47 ?        00:00:00 /usr/lib/x86_64-linux-gnu/xfce4/panel/wrapper-2.0 /usr/lib/x86_64-linux-gnu/xfce4/panel/plugins/libxfce4powermanager.so 19 14680077 power-manager-plugin Power Manager Plugin Display the battery levels of your devices and control the brightness of your display
+root        1208    1186  0 05:47 ?        00:00:00 /usr/lib/x86_64-linux-gnu/xfce4/panel/wrapper-2.0 /usr/lib/x86_64-linux-gnu/xfce4/panel/plugins/libactions.so 21 14680078 actions Action Buttons Log out, lock or other system actions
+root        1225     800  0 05:47 ?        00:00:00 /usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd
+root        1242     800  0 05:47 ?        00:00:00 /usr/lib/x86_64-linux-gnu/tumbler-1/tumblerd
+root        1244       1  0 05:47 ?        00:00:00 xfce4-power-manager --restart --sm-client-id 22b437da2-9e5d-49fd-b393-4507537ca270
+root        1246     826  0 05:47 ?        00:00:00 /usr/bin/python3 /usr/share/system-config-printer/applet.py
+root        1248     826  0 05:47 ?        00:00:00 /usr/bin/python3 /usr/bin/blueman-applet
+root        1250     826  0 05:47 ?        00:00:00 /usr/libexec/geoclue-2.0/demos/agent
+root        1257       1  0 05:47 ?        00:00:00 xcape -e Super_L Control_L Escape
+root        1259     826  0 05:47 ?        00:00:00 light-locker
+root        1265       1  0 05:47 ?        00:00:00 /usr/bin/vmtoolsd -n vmusr --blockFd 3
+root        1269     826  0 05:47 ?        00:00:00 xiccd
+root        1273     826  0 05:47 ?        00:00:00 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+root        1275     826  0 05:47 ?        00:00:00 nm-applet
+colord      1288       1  0 05:47 ?        00:00:00 /usr/libexec/colord
+root        1289     800  0 05:47 ?        00:00:00 /usr/libexec/dconf-service
+root        1332       1  0 05:47 ?        00:00:00 /usr/bin/python3 /usr/bin/blueman-tray
+root        1333     800  0 05:47 ?        00:00:00 /usr/libexec/bluetooth/obexd
+root        1339     800  0 05:47 ?        00:00:00 /usr/libexec/gvfs-udisks2-volume-monitor
+root        1342       1  0 05:47 ?        00:00:00 /usr/libexec/udisks2/udisksd
+root        1356     800  0 05:47 ?        00:00:00 /usr/libexec/gvfs-mtp-volume-monitor
+root        1360     800  0 05:47 ?        00:00:00 /usr/libexec/gvfs-goa-volume-monitor
+root        1364     800  0 05:47 ?        00:00:00 /usr/libexec/gvfs-afc-volume-monitor
+root        1369     800  0 05:47 ?        00:00:00 /usr/libexec/gvfs-gphoto2-volume-monitor
+root        1376    1030  0 05:47 ?        00:00:00 /usr/libexec/gvfsd-trash --spawner :1.12 /org/gtk/gvfs/exec_spaw/0
+root        1382     800  0 05:47 ?        00:00:00 /usr/libexec/gvfsd-metadata
+root        1395       1  1 05:47 ?        00:00:00 /usr/bin/qterminal
+root        1398    1395  1 05:47 pts/0    00:00:00 /bin/zsh
+root        1449    1398  0 05:48 pts/0    00:00:00 /bin/sh ./Server_Unix_Linux_v1.0.sh
+root        1464    1449  0 05:48 pts/0    00:00:00 ps -ef
+현황시작
+##########################################   User Env   ################################################
+LESS_TERMCAP_se=[0m
+LANGUAGE=
+USER=root
+LESS_TERMCAP_ue=[0m
+XDG_SEAT=seat0
+SSH_AGENT_PID=925
+XDG_SESSION_TYPE=x11
+SHLVL=1
+HOME=/root
+OLDPWD=/root/Desktop
+DESKTOP_SESSION=lightdm-xsession
+XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+LESS_TERMCAP_so=[01;33m
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/0/bus
+QT_QPA_PLATFORMTHEME=qt5ct
+LOGNAME=root
+QT_AUTO_SCREEN_SCALE_FACTOR=0
+WINDOWID=0
+LESS_TERMCAP_us=[1;32m
+_=/test/./Server_Unix_Linux_v1.0.sh
+COLORFGBG=15;0
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+XDG_SESSION_ID=2
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SESSION_MANAGER=local/kali:@/tmp/.ICE-unix/826,unix/kali:/tmp/.ICE-unix/826
+_JAVA_OPTIONS=-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
+XDG_MENU_PREFIX=xfce-
+XDG_RUNTIME_DIR=/run/user/0
+XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+DISPLAY=:0.0
+LANG=C
+XDG_CURRENT_DESKTOP=XFCE
+XAUTHORITY=/root/.Xauthority
+XDG_SESSION_DESKTOP=lightdm-xsession
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SSH_AUTH_SOCK=/tmp/ssh-6sL55u5nBKyb/agent.826
+XDG_GREETER_DATA_DIR=/var/lib/lightdm/data/root
+SHELL=/bin/zsh
+GDMSESSION=lightdm-xsession
+QT_ACCESSIBILITY=1
+LESS_TERMCAP_mb=[1;31m
+XDG_VTNR=7
+LESS_TERMCAP_md=[1;36m
+PWD=/test
+LESS_TERMCAP_me=[0m
+XDG_CONFIG_DIRS=/etc/xdg
+XDG_DATA_DIRS=/usr/share/xfce4:/usr/local/share/:/usr/share/:/usr/share
+현황끝
+=================================== System Information Query End =======================================
+ 
+********************************************* START ****************************************************
+ 
+ 
+========================================================================================================
+========================================================================================================
+
+INFO_CHKEND
+현황시작
+1.1 START
+#################################### 1.1 root 계정 원격 접속 제한 #############################################
+--------------------------------------------------------------------------------------------------------
+현황끝
+현황시작
+■ 기준 : 원격 접속 시 root 로 바로 접속 가능 하지 않도록 설정되어 있는 경우 양호
+      : 원격 접속 시 root 로 바로 접속 가능 하도록 설정되어 있을 경우 취약
+현황끝
+■ 현황
+ 
+● /etc/pam.d/login 파일 내용
+ 
+ 
+● /etc/securetty 파일 내용(pts만 gerp)
+ 
+./Server_Unix_Linux_v1.0.sh: 127: /etc/securetty 파일이 존재하지 않습니다.: not found
+ 
+● /etc/ssh/sshd_config 설정 확인(PermitRootLogin에 주석이 없고 PermitRootLogin no일 경우 양호)
+ 
+#PermitRootLogin prohibit-password
+PermitRootLogin yes
+# the setting of "PermitRootLogin without-password".
+ 
+--------------------------------------------------------------------------------------------------------
+########################################################################################################
+========================================================================================================
+1.1 END
+현황끝
