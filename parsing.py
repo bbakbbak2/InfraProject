@@ -121,7 +121,9 @@ class MyParsing:
                 try:
                     wb.save(filename)
                 except PermissionError:
+                    wb.close()
                     return 1
+        wb.close()
 
     # 현재 디렉토리 파일 목록 획득, 텍스트 파일만 추출하기
     def getTxt(self, dir):

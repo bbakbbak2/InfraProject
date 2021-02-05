@@ -53,13 +53,9 @@ class MyApp(QWidget):
         self.pend.setText(self.config['Settings']['end'])
 
         self.initUI()
-        QMessageBox.information(self, "주의사항",
-                                '1. 작업할 엑셀 파일을 반드시 백업해주세요.\r\n' \
-                                '2. 엑셀파일이 실행중인 경우 오류가 발생합니다.\r\n' \
-                                '3. 입력된 파싱 패턴을 찾지 못하면 내용이 저장되지 않습니다.')
 
     def initUI(self):
-        self.setWindowTitle('InfraProject v2.0 by.Elbrown')
+        self.setWindowTitle('InfraProject v2.0 by.Elbrown (https://github.com/bbakbbak2/InfraProject)')
 
         #GridLayOut
         self.setLayout(self.grid)
